@@ -1,0 +1,50 @@
+{
+    "configurations": [
+
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}",
+                "/usr/include/c++/7",
+                "/usr/include/x86_64-linux-gnu/c++/7",
+                "/usr/include/c++/7/backward",
+                "/usr/lib/gcc/arm-none-eabi/5.4.1/include",
+                "/usr/local/include",
+                "/usr/lib/gcc/arm-none-eabi/5.4.1/include-fixed",
+                "/usr/include/x86_64-linux-gnu",
+                "/usr/include",
+                "${workspaceFolder}/src/easy-connect",
+                "${workspaceFolder}/src/MQTT",
+                "${workspaceFolder}/src/MQTT/MQTTPacket",
+                "${workspaceFolder}/src/MQTT/FP",
+                "${workspaceFolder}/src/mbed-os/features/netsocket"
+            ],
+            "defines": [],
+            "intelliSenseMode": "clang-x64",
+            "browse": {
+                "path": [
+                    "${workspaceFolder}",
+                    "${workspaceFolder}/src/easy-connect",
+                    "${workspaceFolder}/src/MQTT",
+                    "${workspaceFolder}/src/MQTT/MQTTPacket",
+                    "${workspaceFolder}/src/MQTT/FP",
+                    "${workspaceFolder}/src/mbed-os/features/netsocket",
+                    "/usr/include/c++/7",
+                    "/usr/include/x86_64-linux-gnu/c++/7",
+                    "/usr/include/c++/7/backward",
+                    "/usr/lib/gcc/arm-none-eabi/5.4.1/include",
+                    "/usr/local/include",
+                    "/usr/lib/gcc/arm-none-eabi/5.4.1/include-fixed",
+                    "/usr/include/x86_64-linux-gnu",
+                    "/usr/include"
+                ],
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": ""
+            },
+            "compilerPath": "/usr/bin/arm-none-eabi-gcc",
+            "cStandard": "c11",
+            "cppStandard": "c++17"
+        }
+    ],
+    "version": 3
+}
