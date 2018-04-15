@@ -25,114 +25,100 @@
 
  */
 
-#include "mbed.h"
+#define logMessage printf
+#define MQTTCLIENT_QOS2 1
 
-Serial pc(USBTX, USBRX);
+#include "easy-connect.h"
+#include "MQTTNetwork.h"
+#include "MQTTmbed.h"
+#include "MQTTClient.h"
 
-DigitalOut led1(LED1);
-
-// #define MQTTCLIENT_QOS2 1
-
-// #include "easy-connect.h"
-// #include "MQTTNetwork.h"
-// #include "MQTTmbed.h"
-// #include "MQTTClient.h"
-
-// int arrivedcount = 0;
+int arrivedcount = 0;
 
 
-// void messageArrived(MQTT::MessageData& md)
-// {
-//     MQTT::Message &message = md.message;
-//     logMessage("Message arrived: qos %d, retained %d, dup %d, packetid %d\r\n", message.qos, message.retained, message.dup, message.id);
-//     logMessage("Payload %.*s\r\n", message.payloadlen, (char*)message.payload);
-//     ++arrivedcount;
-// }
+void messageArrived(MQTT::MessageData& md)
+{
+    MQTT::Message &message = md.message;
+    logMessage("Message arrived: qos %d, retained %d, dup %d, packetid %d\r\n", message.qos, message.retained, message.dup, message.id);
+    logMessage("Payload %.*s\r\n", message.payloadlen, (char*)message.payload);
+    ++arrivedcount;
+}
 
 
 int main(int argc, char* argv[])
 {
 
-    while (true) {
-        led1 = !led1;
+    char* topic = "mbed-sample";
+    float version = 0.6;
 
-        // Print something over the serial connection
-        pc.printf("Blink! LED is now %d\r\n", led1.read());
+    logMessage("HelloMQTT: version is %.2f\r\n", version);
 
-        wait(0.5);
+    NetworkInterface* network = easy_connect(true);
+    if (!network) {
+        return -1;
     }
 
-    // char* topic = "mbed-sample";
-    // float version = 0.6;
+    MQTTNetwork mqttNetwork(network);
 
-    // logMessage("HelloMQTT: version is %.2f\r\n", version);
+    MQTT::Client<MQTTNetwork, Countdown> client(mqttNetwork);
 
-    // NetworkInterface* network = easy_connect(true);
-    // if (!network) {
-    //     return -1;
-    // }
+    const char* hostname = "m2m.eclipse.org";
+    int port = 1883;
+    logMessage("Connecting to %s:%d\r\n", hostname, port);
+    int rc = mqttNetwork.connect(hostname, port);
+    if (rc != 0)
+        logMessage("rc from TCP connect is %d\r\n", rc);
 
-    // MQTTNetwork mqttNetwork(network);
+    MQTTPacket_connectData data = MQTTPacket_connectData_initializer;
+    data.MQTTVersion = 3;
+    data.clientID.cstring = "mbed-sample";
+    data.username.cstring = "testuser";
+    data.password.cstring = "testpassword";
+    if ((rc = client.connect(data)) != 0)
+        logMessage("rc from MQTT connect is %d\r\n", rc);
 
-    // MQTT::Client<MQTTNetwork, Countdown> client(mqttNetwork);
+    if ((rc = client.subscribe(topic, MQTT::QOS2, messageArrived)) != 0)
+        logMessage("rc from MQTT subscribe is %d\r\n", rc);
 
-    // const char* hostname = "m2m.eclipse.org";
-    // int port = 1883;
-    // logMessage("Connecting to %s:%d\r\n", hostname, port);
-    // int rc = mqttNetwork.connect(hostname, port);
-    // if (rc != 0)
-    //     logMessage("rc from TCP connect is %d\r\n", rc);
+    MQTT::Message message;
 
-    // MQTTPacket_connectData data = MQTTPacket_connectData_initializer;
-    // data.MQTTVersion = 3;
-    // data.clientID.cstring = "mbed-sample";
-    // data.username.cstring = "testuser";
-    // data.password.cstring = "testpassword";
-    // if ((rc = client.connect(data)) != 0)
-    //     logMessage("rc from MQTT connect is %d\r\n", rc);
+    // QoS 0
+    char buf[100];
+    sprintf(buf, "Hello World!  QoS 0 message from app version %f\r\n", version);
+    message.qos = MQTT::QOS0;
+    message.retained = false;
+    message.dup = false;
+    message.payload = (void*)buf;
+    message.payloadlen = strlen(buf)+1;
+    rc = client.publish(topic, message);
+    while (arrivedcount < 1)
+        client.yield(100);
 
-    // if ((rc = client.subscribe(topic, MQTT::QOS2, messageArrived)) != 0)
-    //     logMessage("rc from MQTT subscribe is %d\r\n", rc);
+    // QoS 1
+    sprintf(buf, "Hello World!  QoS 1 message from app version %f\r\n", version);
+    message.qos = MQTT::QOS1;
+    message.payloadlen = strlen(buf)+1;
+    rc = client.publish(topic, message);
+    while (arrivedcount < 2)
+        client.yield(100);
 
-    // MQTT::Message message;
+    // QoS 2
+    sprintf(buf, "Hello World!  QoS 2 message from app version %f\r\n", version);
+    message.qos = MQTT::QOS2;
+    message.payloadlen = strlen(buf)+1;
+    rc = client.publish(topic, message);
+    while (arrivedcount < 3)
+        client.yield(100);
 
-    // // QoS 0
-    // char buf[100];
-    // sprintf(buf, "Hello World!  QoS 0 message from app version %f\r\n", version);
-    // message.qos = MQTT::QOS0;
-    // message.retained = false;
-    // message.dup = false;
-    // message.payload = (void*)buf;
-    // message.payloadlen = strlen(buf)+1;
-    // rc = client.publish(topic, message);
-    // while (arrivedcount < 1)
-    //     client.yield(100);
+    if ((rc = client.unsubscribe(topic)) != 0)
+        logMessage("rc from unsubscribe was %d\r\n", rc);
 
-    // // QoS 1
-    // sprintf(buf, "Hello World!  QoS 1 message from app version %f\r\n", version);
-    // message.qos = MQTT::QOS1;
-    // message.payloadlen = strlen(buf)+1;
-    // rc = client.publish(topic, message);
-    // while (arrivedcount < 2)
-    //     client.yield(100);
+    if ((rc = client.disconnect()) != 0)
+        logMessage("rc from disconnect was %d\r\n", rc);
 
-    // // QoS 2
-    // sprintf(buf, "Hello World!  QoS 2 message from app version %f\r\n", version);
-    // message.qos = MQTT::QOS2;
-    // message.payloadlen = strlen(buf)+1;
-    // rc = client.publish(topic, message);
-    // while (arrivedcount < 3)
-    //     client.yield(100);
+    mqttNetwork.disconnect();
 
-    // if ((rc = client.unsubscribe(topic)) != 0)
-    //     logMessage("rc from unsubscribe was %d\r\n", rc);
-
-    // if ((rc = client.disconnect()) != 0)
-    //     logMessage("rc from disconnect was %d\r\n", rc);
-
-    // mqttNetwork.disconnect();
-
-    // logMessage("Version %.2f: finish %d msgs\r\n", version, arrivedcount);
+    logMessage("Version %.2f: finish %d msgs\r\n", version, arrivedcount);
 
     return 0;
 }
