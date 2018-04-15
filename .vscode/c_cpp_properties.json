@@ -3,6 +3,7 @@
         {
             "includePath": [
                 "${workspaceRoot}\\*",
+                "${workspaceRoot}\\bin\\*",
                 "${workspaceRoot}\\mbed-os\\*",
                 "${workspaceRoot}\\mbed-os\\rtos\\*",
                 "${workspaceRoot}\\mbed-os\\rtos\\TARGET_CORTEX\\*",
@@ -264,9 +265,9 @@
                 "DEVICE_SERIAL_ASYNCH=1",
                 "TARGET_STM32F4",
                 "__CMSIS_RTOS",
+                "MBED_BUILD_TIMESTAMP=1523778415.08",
                 "TARGET_FF_ARDUINO",
                 "TOOLCHAIN_GCC",
-                "MBED_BUILD_TIMESTAMP=1523724571.08",
                 "DEVICE_CAN=1",
                 "TARGET_CORTEX_M",
                 "TARGET_DEBUG",
@@ -308,6 +309,7 @@
             "browse": {
                 "path": [
                     "${workspaceRoot}\\*",
+                    "${workspaceRoot}\\bin\\*",
                     "${workspaceRoot}\\mbed-os\\*",
                     "${workspaceRoot}\\mbed-os\\rtos\\*",
                     "${workspaceRoot}\\mbed-os\\rtos\\TARGET_CORTEX\\*",
@@ -554,6 +556,7 @@
         {
             "includePath": [
                 "${workspaceRoot}/*",
+                "${workspaceRoot}/bin/*",
                 "${workspaceRoot}/mbed-os/*",
                 "${workspaceRoot}/mbed-os/rtos/*",
                 "${workspaceRoot}/mbed-os/rtos/TARGET_CORTEX/*",
@@ -815,9 +818,9 @@
                 "DEVICE_SERIAL_ASYNCH=1",
                 "TARGET_STM32F4",
                 "__CMSIS_RTOS",
+                "MBED_BUILD_TIMESTAMP=1523778415.08",
                 "TARGET_FF_ARDUINO",
                 "TOOLCHAIN_GCC",
-                "MBED_BUILD_TIMESTAMP=1523724571.08",
                 "DEVICE_CAN=1",
                 "TARGET_CORTEX_M",
                 "TARGET_DEBUG",
@@ -859,6 +862,7 @@
             "browse": {
                 "path": [
                     "${workspaceRoot}/*",
+                    "${workspaceRoot}/bin/*",
                     "${workspaceRoot}/mbed-os/*",
                     "${workspaceRoot}/mbed-os/rtos/*",
                     "${workspaceRoot}/mbed-os/rtos/TARGET_CORTEX/*",
@@ -1112,6 +1116,7 @@
         {
             "includePath": [
                 "${workspaceRoot}/*",
+                "${workspaceRoot}/bin/*",
                 "${workspaceRoot}/mbed-os/*",
                 "${workspaceRoot}/mbed-os/rtos/*",
                 "${workspaceRoot}/mbed-os/rtos/TARGET_CORTEX/*",
@@ -1373,9 +1378,9 @@
                 "DEVICE_SERIAL_ASYNCH=1",
                 "TARGET_STM32F4",
                 "__CMSIS_RTOS",
+                "MBED_BUILD_TIMESTAMP=1523778415.08",
                 "TARGET_FF_ARDUINO",
                 "TOOLCHAIN_GCC",
-                "MBED_BUILD_TIMESTAMP=1523724571.08",
                 "DEVICE_CAN=1",
                 "TARGET_CORTEX_M",
                 "TARGET_DEBUG",
@@ -1417,6 +1422,7 @@
             "browse": {
                 "path": [
                     "${workspaceRoot}/*",
+                    "${workspaceRoot}/bin/*",
                     "${workspaceRoot}/mbed-os/*",
                     "${workspaceRoot}/mbed-os/rtos/*",
                     "${workspaceRoot}/mbed-os/rtos/TARGET_CORTEX/*",

@@ -11,7 +11,7 @@
             "cwd": "${workspaceRoot}",
             "environment": [],
             "externalConsole": false,
-            "debugServerArgs": "",
+            "debugServerArgs": "-f ${workspaceRoot}/bin/f429zi.cfg -d2",
             "serverLaunchTimeout": 20000,
             "filterStderr": true,
             "filterStdout": false,
@@ -37,7 +37,7 @@
                 "MIMode": "gdb",
                 "MIDebuggerPath": "/usr/bin/arm-none-eabi-gdb",
                 // @NOTE: run from your shell and start debug then
-                // "debugServerPath": "openocd"
+                "debugServerPath": "openocd"
             },
             "osx": {
                 "MIMode": "gdb",
