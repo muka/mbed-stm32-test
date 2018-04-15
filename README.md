@@ -64,6 +64,5 @@ mbed compile --profile mbed-os/tools/profiles/debug.json
 ## Links
 
 - https://gnu-mcu-eclipse.github.io/openocd/install/
-- 
 - https://os.mbed.com/docs/v5.8/tutorials/visual-studio-code.html 
 
