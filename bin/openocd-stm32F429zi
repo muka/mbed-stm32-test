@@ -1,0 +1,4 @@
+
+SCRIPTS=/home/l/opt/xPacks/@gnu-mcu-eclipse/openocd/0.10.0-7.1/.content/scripts
+
+openocd -f $SCRIPTS/interface/stlink-v2-1.cfg -f $SCRIPTS/board/st_nucleo_f4.cfg

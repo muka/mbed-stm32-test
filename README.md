@@ -11,17 +11,21 @@
 ```sh
 sudo npm i -g xpm
 xpm install @gnu-mcu-eclipse/openocd --global
+
+#install openocd rules
+sudo ln -s ~/opt/xPacks/@gnu-mcu-eclipse/openocd/0.10.0-7.1/.content/contrib/60-openocd.rules /etc/udev/rules.d/
+sudo service udev restart
+
+sudo ln -s ~/opt/xPacks/@gnu-mcu-eclipse/openocd/0.10.0-7.1/.content/bin/openocd /usr/bin/openocd
+
 # check install
-~/opt/xPacks/@gnu-mcu-eclipse/openocd/0.10.0-7.1/.content/bin/openocd -v
+openocd -v
+
 # run server, see in ~/opt/xPacks/@gnu-mcu-eclipse/openocd/0.10.0-7.1/.content/scripts/board to match yours eg
-# cd ~/opt/xPacks/@gnu-mcu-eclipse/openocd/0.10.0-7.1/.content/scripts && ../bin/openocd -f board/<name>.cfg
+# openocd -f ~/opt/xPacks/@gnu-mcu-eclipse/openocd/0.10.0-7.1/.content/scripts/board/<name>.cfg
 
-# if error LIBUSB_ACCESS_ERROR happens run below command and restart
-sudo usermod -aG plugdev $USER
+openocd -f ~/opt/xPacks/@gnu-mcu-eclipse/openocd/0.10.0-7.1/.content/scripts/board/stm32429i_eval_stlink.cfg
 
-mkdir -p ~/bin
-echo "cd ~/opt/xPacks/@gnu-mcu-eclipse/openocd/0.10.0-7.1/.content/scripts && ../bin/openocd -f board/stm32429i_eval_stlink.cfg" > ~/bin/openocd
-chmod u+x ~/bin/openocd
 ```
 
 ### mbed CLI
@@ -42,6 +46,12 @@ mbed config GCC_ARM_PATH /usr/bin
 mbed target NUCLEO_F429ZI
 ```
 
+Exporting for vscode
+
+`mbed export -i vscode_gcc_arm`
+
+vscode debugging configuration https://os.mbed.com/docs/v5.8/tutorials/visual-studio-code.html 
+
 ## Build
 
 Debug build profile
@@ -49,4 +59,6 @@ Debug build profile
 ```
 mbed compile --profile mbed-os/tools/profiles/debug.json
 ```
+
+
 
