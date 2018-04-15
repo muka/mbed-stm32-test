@@ -1,2 +1,0 @@
-
-openocd -d3 -f `pwd`/bin/f429zi.cfg 
