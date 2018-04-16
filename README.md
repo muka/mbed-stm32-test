@@ -2,11 +2,11 @@
 
 ## Setup
 
-### ARM toolchain 
+### ARM toolchain
 
 `sudo apt install binutils-arm-none-eabi gcc-arm-none-eabi gdb-arm-none-eabi libnewlib-arm-none-eabi`
 
-### openocd 
+### openocd
 
 ```sh
 sudo npm i -g xpm
@@ -31,11 +31,9 @@ openocd -f ~/opt/xPacks/@gnu-mcu-eclipse/openocd/0.10.0-7.1/.content/scripts/boa
 ### mbed CLI
 
 ```sh
+sudo apt install mercurial # required to access mbed repos
 pip install mbed-cli
-# pip show mbed-cli
-mkdir -p ~/bin
-echo "python ~/.local/lib/python2.7/site-packages/mbed/mbed.py \$@" > ~/bin/mbed
-chmod u+x ~/bin/mbed
+mbed-cli
 ```
 
 Setting defaults
@@ -46,23 +44,30 @@ mbed config GCC_ARM_PATH /usr/bin
 mbed target NUCLEO_F429ZI
 ```
 
-Exporting for vscode
+Exporting to a vscode project
 
 `mbed export -i vscode_gcc_arm`
 
-vscode debugging configuration https://os.mbed.com/docs/v5.8/tutorials/visual-studio-code.html 
+See vscode setup for details on the configuration (mainly `launch.json`)
+
+## Running
+
+Start openocd in the repo directory (`-d` flag will provide more details)
+
+`openocd -d1`
+
+Receiving messages from serial printing
+
+`screen /dev/ttyACM0 9600`
 
 ## Build
 
 Debug build profile
 
-```
-mbed compile --profile mbed-os/tools/profiles/debug.json
-```
-
+`mbed compile --profile mbed-os/tools/profiles/debug.json`
 
 ## Links
 
-- https://gnu-mcu-eclipse.github.io/openocd/install/
-- https://os.mbed.com/docs/v5.8/tutorials/visual-studio-code.html 
-
+- OpenOCD install https://gnu-mcu-eclipse.github.io/openocd/install/
+- mbed export to vscode https://os.mbed.com/docs/v5.8/tutorials/visual-studio-code.html
+- debug with printf https://docs.mbed.com/docs/mbed-os-handbook/en/latest/debugging/printf/

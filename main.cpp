@@ -25,7 +25,7 @@
 
  */
 
-#define logMessage printf
+
 #define MQTTCLIENT_QOS2 1
 
 #include "easy-connect.h"
@@ -35,6 +35,12 @@
 
 int arrivedcount = 0;
 
+extern "C" void mbed_mac_address(char *s);
+
+Serial pc(USBTX, USBRX);
+DigitalOut led1(LED1);
+
+#define logMessage pc.printf
 
 void messageArrived(MQTT::MessageData& md)
 {
@@ -52,6 +58,10 @@ int main(int argc, char* argv[])
     float version = 0.6;
 
     logMessage("HelloMQTT: version is %.2f\r\n", version);
+
+    char mac[6];
+    mbed_mac_address(mac);
+    logMessage("%02x:%02x:%02x:%02x:%02x:%02x", mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
 
     NetworkInterface* network = easy_connect(true);
     if (!network) {
