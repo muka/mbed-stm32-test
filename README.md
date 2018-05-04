@@ -12,7 +12,7 @@
 sudo npm i -g xpm
 xpm install @gnu-mcu-eclipse/openocd --global
 
-#install openocd rules
+#install openocd rules (ensure the version matches!)
 sudo ln -s ~/opt/xPacks/@gnu-mcu-eclipse/openocd/0.10.0-7.1/.content/contrib/60-openocd.rules /etc/udev/rules.d/
 sudo service udev restart
 
@@ -23,8 +23,6 @@ openocd -v
 
 # run server, see in ~/opt/xPacks/@gnu-mcu-eclipse/openocd/0.10.0-7.1/.content/scripts/board to match yours eg
 # openocd -f ~/opt/xPacks/@gnu-mcu-eclipse/openocd/0.10.0-7.1/.content/scripts/board/<name>.cfg
-
-openocd -f ~/opt/xPacks/@gnu-mcu-eclipse/openocd/0.10.0-7.1/.content/scripts/board/stm32429i_eval_stlink.cfg
 
 ```
 
